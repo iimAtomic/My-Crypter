@@ -38,3 +38,43 @@ document.getElementById('decryptButton').addEventListener('click', () => {
     }
     document.getElementById('decryptedText').textContent = caesarCipher(decryptInput, -3);
 });
+
+// buton de copie du texte crypté
+const CopyFunctionEncrypt = (event) => {
+    event.preventDefault()
+    let copyText = document.querySelector("#encryptedText")
+    let range = document.createRange();
+    range.selectNode(copyText)
+
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+
+    try {
+        let successful = document.execCommand('copy')
+        let msg = successful ? 'Copié !' : 'Echec de la copie';
+        alert(msg)
+    } catch(err){
+        alert('Erreur')
+    }
+    window.getSelection().removeAllRanges();
+}
+
+// buton de copie du texte décrypté
+const CopyFunctionDecrypt = (event) => {
+    event.preventDefault()
+    let copyText = document.querySelector("#decryptedText")
+    let range = document.createRange();
+    range.selectNode(copyText)
+
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+
+    try {
+        let successful = document.execCommand('copy')
+        let msg = successful ? 'Copié !' : 'Echec de la copie';
+        alert(msg)
+    } catch(err){
+        alert('Erreur')
+    }
+    window.getSelection().removeAllRanges();
+}
