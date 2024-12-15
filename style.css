@@ -78,7 +78,7 @@ body {
     font-weight: bold;
 }
 
-form-group button:hover {
+.form-group button:hover {
     background: #00a3cc;
 }
 
@@ -90,6 +90,21 @@ form-group button:hover {
     font-size: 1rem;
     margin-top: 10px;
     color: #00ffcc;
+}
+
+.copy_button {
+    padding: 10px;
+    background: #00ffcc;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #141e30;
+    transition: background 0.3s;
+    font-weight: 600;
+}
+.copy_button:hover {
+    background-color: #00a3cc;
 }
 
 .footer {
