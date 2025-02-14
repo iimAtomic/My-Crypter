@@ -1,0 +1,139 @@
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 20px;
+    padding: 0;
+    background: #121212;
+    color: #f4f4f4;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.header {
+    background: linear-gradient(90deg, #3a3d98, #141e30);
+    color: white;
+    padding: 20px 0;
+    border-radius: 10px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.header p {
+    margin: 5px 0 0;
+    font-size: 1rem;
+}
+
+.section {
+    margin: 40px 0;
+    background: #1e1e2f;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+}
+
+.section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #00d9ff;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #1a1a2e;
+    color: #f4f4f4;
+}
+
+.form-group button {
+    width: 100%;
+    background: #00d9ff;
+    color: #1a1a2e;
+    font-size: 1rem;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    font-weight: bold;
+}
+
+.form-group button:hover {
+    background: #00a3cc;
+}
+
+.output {
+    padding: 15px;
+    background: #2e2e4d;
+    border: 1px solid #333;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 10px;
+    color: #00ffcc;
+}
+
+.copy_button {
+    padding: 10px;
+    background: #00ffcc;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #141e30;
+    transition: background 0.3s;
+    font-weight: 600;
+}
+.copy_button:hover {
+    background-color: #00a3cc;
+}
+
+.footer {
+    text-align: center;
+    background: #1a1a2e;
+    color: #666;
+    font-size: 0.9rem;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    color: #8f8f8f;
+}
+
+.footer a {
+    color: #00d9ff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .section h2 {
+        font-size: 1.5rem;
+    }
+}
