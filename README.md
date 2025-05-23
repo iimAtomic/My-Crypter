@@ -28,7 +28,7 @@ Un outil simple et sécurisé pour crypter et décrypter vos messages en ligne. 
 1. Collez un texte crypté dans le champ "Décrypter un Message".
 2. Cliquez sur le bouton **Décrypter** pour reconstituer le texte original.
 
-## Installation locale
+## Installation locale:)
 
 Si vous souhaitez exécuter ce projet en local :
 
