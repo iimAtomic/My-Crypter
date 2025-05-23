@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="fr" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,56 +8,60 @@
     <meta name="description" content="Cryptez et décryptez vos messages en toute simplicité avec notre outil en ligne sécurisé. Gratuit, rapide et fiable.">
     <meta name="keywords" content="Crypteur, Décrypteur, Cryptage, Sécurité, Outil en ligne, Cryptage de texte">
     <meta name="author" content="ATOMIIC CODE">
-    <link href="style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
-<body>
-    
-    <div class="header">
-        <h1><i class="fas fa-lock"></i> Crypteur et Décrypteur</h1>
-        <p>Sécurisez vos messages en un clic</p>
-    </div>
-    
-    
-    <div class="container">
-        
-        <div class="section">
-            <h2><i class="fas fa-key"></i> Crypter un Message</h2>
-            <form id="cryptoForm">
-                <div class="form-group">
-                    <label for="textInput">Entrez le texte à crypter :</label>
-                <input type="text" id="textInput" name="textInput" placeholder="Votre texte ici..." required>
-            </div>
-            <div class="form-group">
-                <button type="button" id="encryptButton">Crypter <i class="fas fa-lock"></i></button>
-            </div>
-            <div id="encryptedText" class="output">Le texte crypté s'affichera ici</div>
-            <button onclick="CopyFunctionEncrypt(event)" class="copy_button">Copier</button>
-        </form>
-    </div>
-    
-    <!-- Section Décrypter -->
-    <div class="section">
-        <h2><i class="fas fa-unlock-alt"></i> Décrypter un Message</h2>
-        <form id="decryptForm">
-            <div class="form-group">
-                <label for="decryptInput">Entrez le texte à décrypter :</label>
-                <input type="text" id="decryptInput" name="decryptInput" placeholder="Votre texte crypté ici..." required>
-            </div>
-            <div class="form-group">
-                <button type="button" id="decryptButton">Décrypter <i class="fas fa-unlock"></i></button>
-            </div>
-            <div id="decryptedText" class="output">Le texte décrypté s'affichera ici</div>
-            <button onclick="CopyFunctionDecrypt(event)" class="copy_button">Copier</button>
-        </form>
-    </div>
-</div>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 font-sans">
 
+<header class="bg-white dark:bg-gray-800 shadow-md py-6 text-center">
+    <h1 class="text-3xl font-bold flex justify-center items-center gap-2"><i class="fas fa-lock"></i> Crypteur & Décrypteur</h1>
+    <p class="text-sm text-gray-500 dark:text-gray-300">Sécurisez vos messages en un clic</p>
+</header>
 
-<div class="footer">
-    <p>© 2024 Crypteur et Décrypteur de <a href="https://bento.me/vegbalux">ATOMIIC CODE</a>. Tous droits réservés.</p>
-</div>
+<main class="max-w-3xl mx-auto px-4 py-8 space-y-12">
+
+    <!-- Crypter Section -->
+    <section class="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><i class="fas fa-key"></i> Crypter un Message</h2>
+        <form id="cryptoForm" class="space-y-4">
+            <label class="block">
+                <span class="text-gray-700 dark:text-gray-200">Entrez le texte à crypter :</span>
+                <input type="text" id="textInput" name="textInput" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm" placeholder="Votre texte ici..." required>
+            </label>
+            <button type="button" id="encryptButton" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium transition">Crypter <i class="fas fa-lock"></i></button>
+            <div id="encryptedText" class="output bg-gray-50 dark:bg-gray-700 p-4 rounded-md border mt-2">Le texte crypté s'affichera ici</div>
+            <div id="qrCode" class="mt-4"></div>
+            <button onclick="CopyFunctionEncrypt(event)" class="copy_button mt-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 px-4 py-2 rounded-lg">Copier</button>
+            <button onclick="downloadEncryptedText(event)" class="mt-2 ml-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg">Télécharger</button>
+            <div id="encryptHistory" class="mt-4 text-sm text-gray-600 dark:text-gray-400"></div>
+        </form>
+    </section>
+
+    <!-- Décrypter Section -->
+    <section class="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6">
+        <h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><i class="fas fa-unlock-alt"></i> Décrypter un Message</h2>
+        <form id="decryptForm" class="space-y-4">
+            <label class="block">
+                <span class="text-gray-700 dark:text-gray-200">Entrez le texte à décrypter :</span>
+                <input type="text" id="decryptInput" name="decryptInput" class="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm" placeholder="Votre texte crypté ici..." required>
+            </label>
+            <button type="button" id="decryptButton" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg font-medium transition">Décrypter <i class="fas fa-unlock"></i></button>
+            <div id="decryptedText" class="output bg-gray-50 dark:bg-gray-700 p-4 rounded-md border mt-2">Le texte décrypté s'affichera ici</div>
+            <button onclick="CopyFunctionDecrypt(event)" class="copy_button mt-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 px-4 py-2 rounded-lg">Copier</button>
+            <div id="decryptHistory" class="mt-4 text-sm text-gray-600 dark:text-gray-400"></div>
+        </form>
+    </section>
+</main>
+
+<footer class="bg-white dark:bg-gray-800 text-center text-sm text-gray-600 dark:text-gray-400 py-4 mt-10">
+    <p>© 2024 Crypteur et Décrypteur de <a href="https://bento.me/vegbalux" class="text-blue-500 hover:underline">ATOMIIC CODE</a>. Tous droits réservés.</p>
+</footer>
 
 <script src="index.js"></script>
 

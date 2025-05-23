@@ -1,80 +1,83 @@
-function caesarCipher(text, shift) {
+
+    const encryptButton = document.getElementById("encryptButton");
+    const decryptButton = document.getElementById("decryptButton");
+    const qrCodeDiv = document.getElementById("qrCode");
+    const encryptHistory = document.getElementById("encryptHistory");
+    const decryptHistory = document.getElementById("decryptHistory");
+
+    const historyEncrypt = [];
+    const historyDecrypt = [];
+
+    function caesarCipher(text, shift) {
     const alphabet = 'abcdefghijklmnopqrstuvwxyz';
     const alphabetUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let result = '';
 
     for (let char of text) {
-        if (alphabet.includes(char)) {
-            let newIndex = (alphabet.indexOf(char) + shift) % 26;
-            if (newIndex < 0) newIndex += 26;
-            result += alphabet[newIndex];
-        } else if (alphabetUpper.includes(char)) {
-            let newIndex = (alphabetUpper.indexOf(char) + shift) % 26;
-        if (newIndex < 0) newIndex += 26;
-            result += alphabetUpper[newIndex];
-        } else {
-            result += char;
-        }
-    }
+    if (alphabet.includes(char)) {
+    let newIndex = (alphabet.indexOf(char) + shift) % 26;
+    if (newIndex < 0) newIndex += 26;
+    result += alphabet[newIndex];
+} else if (alphabetUpper.includes(char)) {
+    let newIndex = (alphabetUpper.indexOf(char) + shift) % 26;
+    if (newIndex < 0) newIndex += 26;
+    result += alphabetUpper[newIndex];
+} else {
+    result += char;
+}
+}
     return result;
 }
 
-// Crypter
-document.getElementById('encryptButton').addEventListener('click', () => {
-    const textInput = document.getElementById('textInput').value.trim();
-    if (textInput === '') {
-        alert("Veuillez entrer un texte à crypter !");
-        return;
-    }
-    document.getElementById('encryptedText').textContent = caesarCipher(textInput, 3);
+    encryptButton.onclick = () => {
+    const text = document.getElementById("textInput").value.trim();
+    if (text === '') {
+    alert("Veuillez entrer un texte à crypter !");
+    return;
+}
+    const encrypted = caesarCipher(text, 3);
+    document.getElementById("encryptedText").textContent = encrypted;
+
+    QRCode.toCanvas(document.createElement("canvas"), encrypted, (err, canvas) => {
+    if (!err) {
+    qrCodeDiv.innerHTML = "";
+    qrCodeDiv.appendChild(canvas);
+}
 });
 
-// Décrypter
-document.getElementById('decryptButton').addEventListener('click', () => {
-    const decryptInput = document.getElementById('decryptInput').value.trim();
-    if (decryptInput === '') {
-        alert("Veuillez entrer un texte à décrypter !");
-        return;
-    }
-    document.getElementById('decryptedText').textContent = caesarCipher(decryptInput, -3);
-});
+    historyEncrypt.push(encrypted);
+    encryptHistory.textContent = `Historique: ${historyEncrypt.slice(-5).join(" | ")}`;
+};
 
-// buton de copie du texte crypté
-const CopyFunctionEncrypt = (event) => {
-    event.preventDefault()
-    let copyText = document.querySelector("#encryptedText")
-    let range = document.createRange();
-    range.selectNode(copyText)
+    decryptButton.onclick = () => {
+    const text = document.getElementById("decryptInput").value.trim();
+    if (text === '') {
+    alert("Veuillez entrer un texte à décrypter !");
+    return;
+}
+    const decrypted = caesarCipher(text, -3);
+    document.getElementById("decryptedText").textContent = decrypted;
+    historyDecrypt.push(decrypted);
+    decryptHistory.textContent = `Historique: ${historyDecrypt.slice(-5).join(" | ")}`;
+};
 
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
-
-    try {
-        let successful = document.execCommand('copy')
-        let msg = successful ? 'Copié !' : 'Echec de la copie';
-        alert(msg)
-    } catch(err){
-        alert('Erreur')
-    }
-    window.getSelection().removeAllRanges();
+    function CopyFunctionEncrypt(event) {
+    event.preventDefault();
+    navigator.clipboard.writeText(document.getElementById("encryptedText").textContent);
 }
 
-// buton de copie du texte décrypté
-const CopyFunctionDecrypt = (event) => {
-    event.preventDefault()
-    let copyText = document.querySelector("#decryptedText")
-    let range = document.createRange();
-    range.selectNode(copyText)
-
-    window.getSelection().removeAllRanges();
-    window.getSelection().addRange(range);
-
-    try {
-        let successful = document.execCommand('copy')
-        let msg = successful ? 'Copié !' : 'Echec de la copie';
-        alert(msg)
-    } catch(err){
-        alert('Erreur')
-    }
-    window.getSelection().removeAllRanges();
+    function CopyFunctionDecrypt(event) {
+    event.preventDefault();
+    navigator.clipboard.writeText(document.getElementById("decryptedText").textContent);
 }
+
+    function downloadEncryptedText(event) {
+    event.preventDefault();
+    const text = document.getElementById("encryptedText").textContent;
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "texte_crypte.txt";
+    link.click();
+}
+
